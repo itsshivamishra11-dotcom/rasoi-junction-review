@@ -19,6 +19,7 @@
     .langs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}.lang{padding:11px;border-radius:13px;background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.1);font-weight:800}.lang.active{background:rgba(255,190,60,.2);border-color:rgba(255,200,80,.45)}
     .suggestions{display:grid;gap:9px}.suggestion{padding:13px;border-radius:15px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;text-align:left;line-height:1.45;font-size:14px}.suggestion:hover{background:rgba(255,190,60,.12)}
     .copy{display:none;margin-top:12px;width:100%;padding:14px;border-radius:15px;background:#fff;color:#111;font-weight:900}.copy.show{display:block}.google{display:none;width:100%;margin-top:10px;padding:15px;border-radius:16px;background:#fff;color:#111;font-weight:900;font-size:16px;box-shadow:0 8px 25px rgba(0,0,0,.25)}.google.show{display:block}
+    .compliment{display:none;margin-top:12px;padding:15px;border-radius:16px;background:linear-gradient(145deg,rgba(255,190,60,.18),rgba(255,255,255,.07));border:1px solid rgba(255,195,70,.3);text-align:center;line-height:1.5}.compliment.show{display:block;animation:pop .35s ease}.compliment strong{display:block;font-size:17px;margin-bottom:4px}
     .selected{display:none;margin-top:10px;padding:12px;border-radius:14px;background:rgba(255,255,255,.07);color:#ddd;font-size:12px;line-height:1.45}.selected.show{display:block}.note{margin-top:20px;font-size:12px;color:#9f9f9f;line-height:1.45}.footer{margin-top:18px;font-size:12px;color:#888}
     @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}@media(max-width:380px){h1{font-size:25px}.card{padding:24px 15px}}
   </style>
@@ -37,19 +38,23 @@
 
   <div class="panel" id="panel">
     <div class="panelTitle">Review ka style choose kijiye ✍️</div>
-    <div class="hint">Ye sirf review ideas hain. Apne real experience ke hisaab se edit karke hi Google par post karein. 🙏</div>
+    <div class="hint">Ye review ideas hain. Apne real experience ke hisaab se edit karke hi Google par post karein. 🙏</div>
     <div class="langs"><button class="lang active" data-lang="hi">🇮🇳 Hindi</button><button class="lang" data-lang="en">🇬🇧 English</button></div>
     <div class="suggestions" id="suggestions"></div>
     <div class="selected" id="selected"></div>
     <button class="copy" id="copyBtn">📋 Review Copy Karein</button>
     <button class="google" id="googleBtn">⭐ Google par Review Karein</button>
+    <div class="compliment" id="compliment"><strong>Dhanyavaad! ❤️</strong><span id="complimentText">Aapka feedback Rasoi Junction ke liye bahut khaas hai. Swaad ghar jaisa tha, toh yaad bhi ghar jaisi rakhiye! 😊</span></div>
   </div>
 
   <div class="note">Google reviews genuine customer experience par based hone chahiye. Aapka honest feedback welcome hai. ❤️</div>
   <div class="footer">© Rasoi Junction • Swaad Ghar Jaisa</div>
 </section></main>
 <script>
-const GOOGLE_LINK='https://www.google.com/maps/search/?api=1&query=Rasoi%20Junction%20Restaurant%20%26%20Fast%20Food%2C%20KK%20Complex%2C%20IIM%20Rd%2C%20near%20Shalimar%20Garden%20Bay%2C%20opp.%20Career%20Dental%2C%20Lucknow%2C%20Uttar%20Pradesh';
+// User-provided Google Maps listing link.
+// Google does not allow this webpage to directly submit a review into Google's form.
+// We therefore copy the customer's chosen text and open the official listing; the customer reviews/pastes it there.
+const GOOGLE_LINK='https://maps.app.goo.gl/j8YamixQsDMdr2qy9';
 const data={
 5:{hi:['खाना बहुत स्वादिष्ट था और सर्विस भी अच्छी लगी। माहौल और व्यवहार दोनों अच्छे रहे। Rasoi Junction का अनुभव बढ़िया रहा।','घर जैसा स्वाद सच में महसूस हुआ। खाना fresh और tasty था। दोबारा जरूर आना चाहूंगा/चाहूंगी। ❤️','Rasoi Junction में हमारा experience बहुत अच्छा रहा। स्वाद, quantity और service — सब बढ़िया लगा।'],en:['Really enjoyed the food at Rasoi Junction. The taste and service were both very good. Would definitely visit again!','The food had a nice homely taste and everything felt fresh and satisfying. Had a great experience. ❤️','Great experience at Rasoi Junction. The food, quantity and service were all good. Would happily visit again.']},
 4:{hi:['खाना काफी अच्छा था और service भी अच्छी रही। Overall experience अच्छा रहा।','Taste अच्छा लगा और staff का behaviour भी अच्छा था। Overall a pleasant experience.','अच्छा खाना और अच्छा service experience। अगली बार फिर try करेंगे।'],en:['Good food and a pleasant service experience. Overall, I enjoyed my visit.','The taste was good and the staff was polite. Overall a nice experience.','Good food and friendly service. I would be happy to visit again.']},
@@ -58,12 +63,12 @@ const data={
 1:{hi:['मेरा experience अच्छा नहीं रहा। कृपया feedback को consider करके service और food quality improve करें।','मैं पूरी तरह satisfied नहीं था/थी। उम्मीद है अगली बार experience बेहतर होगा।','मेरी visit उम्मीद के मुताबिक नहीं रही। कृपया कुछ areas में improvement पर ध्यान दें।'],en:['My experience was not good. I hope the feedback is considered and the food and service are improved.','I was not completely satisfied with my visit. I hope the experience is better next time.','The visit did not meet my expectations. Please focus on improving the areas mentioned in the feedback.']}
 };
 let rating=5,lang='hi',selectedText='';
-const panel=document.getElementById('panel'), suggestions=document.getElementById('suggestions'), selected=document.getElementById('selected'), copyBtn=document.getElementById('copyBtn'), googleBtn=document.getElementById('googleBtn');
-function render(){suggestions.innerHTML='';data[rating][lang].forEach((t,i)=>{const b=document.createElement('button');b.className='suggestion';b.textContent=t;b.onclick=()=>selectSuggestion(t);suggestions.appendChild(b)});selected.classList.remove('show');copyBtn.classList.remove('show');googleBtn.classList.remove('show');selectedText='';}
+const panel=document.getElementById('panel'), suggestions=document.getElementById('suggestions'), selected=document.getElementById('selected'), copyBtn=document.getElementById('copyBtn'), googleBtn=document.getElementById('googleBtn'), compliment=document.getElementById('compliment'), complimentText=document.getElementById('complimentText');
+function render(){suggestions.innerHTML='';data[rating][lang].forEach(t=>{const b=document.createElement('button');b.className='suggestion';b.textContent=t;b.onclick=()=>selectSuggestion(t);suggestions.appendChild(b)});selected.classList.remove('show');copyBtn.classList.remove('show');googleBtn.classList.remove('show');compliment.classList.remove('show');selectedText='';}
 function selectSuggestion(t){selectedText=t;selected.textContent='Selected review idea: “'+t+'”';selected.classList.add('show');copyBtn.textContent='📋 Review Copy Karein';copyBtn.classList.add('show');googleBtn.classList.add('show');}
 document.querySelectorAll('.rating').forEach(b=>b.onclick=()=>{rating=Number(b.dataset.rating);panel.classList.add('show');render();panel.scrollIntoView({behavior:'smooth',block:'center'});});
 document.querySelectorAll('.lang').forEach(b=>b.onclick=()=>{lang=b.dataset.lang;document.querySelectorAll('.lang').forEach(x=>x.classList.toggle('active',x===b));render();});
 copyBtn.onclick=async()=>{if(!selectedText)return;try{await navigator.clipboard.writeText(selectedText);copyBtn.textContent='✅ Copied! Ab Google par paste karein';}catch(e){selected.textContent='Review select ho gaya. Text ko long-press karke copy karein, phir Google par paste karein.';selected.classList.add('show');}};
-googleBtn.onclick=()=>window.open(GOOGLE_LINK,'_blank','noopener,noreferrer');
+googleBtn.onclick=()=>{compliment.classList.add('show');complimentText.textContent=rating>=4?'Aapne dil khush kar diya! ❤️ Aapka honest review Rasoi Junction ke liye bahut badi baat hai.':'Aapka honest feedback bhi bahut valuable hai. 🙏 Hum better banne ki koshish karenge.';window.open(GOOGLE_LINK,'_blank','noopener,noreferrer');};
 render();
 </script></body></html>
