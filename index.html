@@ -44,18 +44,16 @@
     <div class="selected" id="selected"></div>
     <button class="copy" id="copyBtn">📋 Review Copy Karein</button>
     <button class="google" id="googleBtn">⭐ Google par Review Karein</button>
-    <div class="compliment" id="compliment"><strong>Dhanyavaad! ❤️</strong><span id="complimentText">Aapka feedback Rasoi Junction ke liye bahut khaas hai. Swaad ghar jaisa tha, toh yaad bhi ghar jaisi rakhiye! 😊</span></div>
+    <div class="compliment" id="compliment"><strong>Dhanyavaad! ❤️</strong><span id="complimentText">Aapka feedback Rasoi Junction ke liye bahut khaas hai.</span></div>
   </div>
 
   <div class="note">Google reviews genuine customer experience par based hone chahiye. Aapka honest feedback welcome hai. ❤️</div>
   <div class="footer">© Rasoi Junction • Swaad Ghar Jaisa</div>
 </section></main>
 <script>
-// Official Google review link provided by the business owner.
-// The page copies the customer's chosen review idea and opens Google's review page; the customer reviews/pastes it there.
 const GOOGLE_LINK='https://g.page/r/CQREhtNXqU5AEAE/review';
 const data={
-5:{hi:['खाना बहुत स्वादिष्ट था और सर्विस भी अच्छी लगी। माहौल और व्यवहार दोनों अच्छे रहे। Rasoi Junction का अनुभव बढ़िया रहा।','घर जैसा स्वाद सच में महसूस हुआ। खाना fresh और tasty था। दोबारा जरूर आना चाहूंगा/चाहूंगी। ❤️','Rasoi Junction में हमारा experience बहुत अच्छा रहा। स्वाद, quantity और service — सब बढ़िया लगा।'],en:['Really enjoyed the food at Rasoi Junction. The taste and service were both very good. Would definitely visit again!','The food had a nice homely taste and everything felt fresh and satisfying. Had a great experience. ❤️','Great experience at Rasoi Junction. The food, quantity and service were all good. Would happily visit again.']},
+5:{hi:['खाना बहुत स्वादिष्ट था और सर्विस भी अच्छी लगी। माहौल और व्यवहार दोनों अच्छे रहे। Rasoi Junction का अनुभव बढ़िया रहा।','घर जैसा स्वाद सच में महसूस हुआ। खाना fresh और tasty था। दोबारा जरूर आना। ❤️','Rasoi Junction में हमारा experience बहुत अच्छा रहा। स्वाद, quantity और service — सब बढ़िया लगा।'],en:['Really enjoyed the food at Rasoi Junction. The taste and service were both very good. Would definitely visit again!','The food had a nice homely taste and everything felt fresh and satisfying. Had a great experience. ❤️','Great experience at Rasoi Junction. The food, quantity and service were all good. Would happily visit again.']},
 4:{hi:['खाना काफी अच्छा था और service भी अच्छी रही। Overall experience अच्छा रहा।','Taste अच्छा लगा और staff का behaviour भी अच्छा था। Overall a pleasant experience.','अच्छा खाना और अच्छा service experience। अगली बार फिर try करेंगे।'],en:['Good food and a pleasant service experience. Overall, I enjoyed my visit.','The taste was good and the staff was polite. Overall a nice experience.','Good food and friendly service. I would be happy to visit again.']},
 3:{hi:['Overall experience ठीक था। कुछ चीजें अच्छी लगीं और कुछ में improvement की गुंजाइश है।','खाना ठीक था। Taste और service में थोड़ा improvement हो तो experience और बेहतर हो सकता है।','Experience average रहा। उम्मीद है अगली visit में और बेहतर मिलेगा।'],en:['The overall experience was okay. Some things were good, while a few areas could be improved.','The food was okay. A little improvement in taste and service could make the experience better.','It was an average experience. I hope to have an even better visit next time.']},
 2:{hi:['Experience मेरी उम्मीद के मुताबिक नहीं रहा। Taste/service में improvement की जरूरत महसूस हुई।','कुछ चीजें बेहतर हो सकती थीं। उम्मीद है feedback पर ध्यान दिया जाएगा।','मेरा experience अच्छा नहीं रहा। कृपया taste और service को थोड़ा improve करें।'],en:['The experience did not meet my expectations. I felt there is room for improvement in taste and service.','A few things could have been better. I hope the feedback is taken positively.','My experience was not as good as expected. Please consider improving the taste and service.']},
