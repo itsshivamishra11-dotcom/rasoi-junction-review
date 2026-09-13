@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Share your experience at Rasoi Junction – Swaad Ghar Jaisa.">
+  <title>Rasoi Junction | Your Review Matters ❤️</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;background:radial-gradient(circle at top,#3a220f 0,#17100b 38%,#090909 100%);color:#fff;display:flex;justify-content:center;padding:18px}
+    .wrap{width:100%;max-width:470px}
+    .card{margin:auto;background:rgba(255,255,255,.075);border:1px solid rgba(255,194,72,.25);border-radius:28px;padding:28px 20px 22px;box-shadow:0 24px 70px rgba(0,0,0,.45);backdrop-filter:blur(12px);text-align:center}
+    .logo{width:78px;height:78px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:linear-gradient(145deg,#ffbd35,#d66a08);box-shadow:0 10px 30px rgba(255,166,35,.25);font-size:38px;border:3px solid #ffd77a}
+    h1{font-size:29px;line-height:1.05;letter-spacing:-.6px}
+    .tag{margin-top:8px;color:#ffd37a;font-size:16px;font-weight:600}
+    .line{height:1px;background:linear-gradient(90deg,transparent,rgba(255,205,105,.5),transparent);margin:24px 0}
+    .question{font-size:19px;font-weight:700;margin-bottom:5px}
+    .sub{font-size:14px;color:#cfcfcf;margin-bottom:18px}
+    .stars{display:grid;gap:10px}
+    button{font:inherit;border:0;cursor:pointer}
+    .rating{width:100%;padding:14px 15px;border-radius:17px;background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;transition:.2s transform,.2s background}
+    .rating:hover{transform:translateY(-2px);background:rgba(255,190,60,.14)}
+    .rating .starsText{font-size:21px;letter-spacing:2px;color:#ffc43d}
+    .rating span:last-child{font-size:14px;font-weight:700;color:#eee}
+    .thanks{display:none;margin-top:20px;padding:18px;border-radius:20px;background:linear-gradient(145deg,rgba(255,190,60,.18),rgba(255,255,255,.07));border:1px solid rgba(255,195,70,.3)}
+    .thanks.show{display:block;animation:pop .35s ease}
+    .thanks h2{font-size:22px;margin-bottom:7px}
+    .thanks p{color:#eee;line-height:1.5;font-size:14px}
+    .google{display:none;width:100%;margin-top:14px;padding:15px;border-radius:16px;background:#fff;color:#111;font-weight:800;font-size:16px;box-shadow:0 8px 25px rgba(0,0,0,.25)}
+    .google.show{display:block}
+    .google small{display:block;font-size:11px;font-weight:600;color:#666;margin-top:3px}
+    .note{margin-top:20px;font-size:12px;color:#9f9f9f;line-height:1.45}
+    .footer{margin-top:18px;font-size:12px;color:#888}
+    @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+    @media(max-width:380px){h1{font-size:25px}.card{padding:24px 15px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="logo">🍛</div>
+      <h1>RASOI JUNCTION</h1>
+      <div class="tag">Swaad Ghar Jaisa ❤️</div>
+
+      <div class="line"></div>
+
+      <div class="question">Aapka experience kaisa raha?</div>
+      <div class="sub">Ek rating se humein bahut help milti hai.</div>
+
+      <div class="stars" aria-label="Choose your rating">
+        <button class="rating" data-rating="5"><span class="starsText">★★★★★</span><span>Bahut Badhiya!</span></button>
+        <button class="rating" data-rating="4"><span class="starsText">★★★★☆</span><span>Kaafi Accha!</span></button>
+        <button class="rating" data-rating="3"><span class="starsText">★★★☆☆</span><span>Theek Thaak</span></button>
+        <button class="rating" data-rating="2"><span class="starsText">★★☆☆☆</span><span>Improve Karna Hai</span></button>
+        <button class="rating" data-rating="1"><span class="starsText">★☆☆☆☆</span><span>Humein Batayein</span></button>
+      </div>
+
+      <div class="thanks" id="thanks">
+        <h2 id="thanksTitle">Dhanyavaad! ❤️</h2>
+        <p id="thanksText">Aapka feedback Rasoi Junction ke liye bahut khaas hai. Swaad ghar jaisa tha, toh yaad bhi ghar jaisi rakhiye! 😊</p>
+      </div>
+
+      <button class="google" id="googleBtn">
+        ⭐ Google par Review Karein
+        <small>Rasoi Junction ko apna experience batayein</small>
+      </button>
+
+      <div class="note">Google par review dena aapki marzi hai. Honest feedback ke liye thank you. 🙏</div>
+      <div class="footer">© Rasoi Junction • Swaad Ghar Jaisa</div>
+    </section>
+  </main>
+
+  <script>
+    // Google Maps listing link. This is intentionally a search link so it keeps working
+    // even if Google's review-page URL format changes.
+    const GOOGLE_LINK = 'https://www.google.com/maps/search/?api=1&query=Rasoi%20Junction%20Restaurant%20%26%20Fast%20Food%2C%20KK%20Complex%2C%20IIM%20Rd%2C%20near%20Shalimar%20Garden%20Bay%2C%20opp.%20Career%20Dental%2C%20Lucknow%2C%20Uttar%20Pradesh';
+
+    const buttons = document.querySelectorAll('.rating');
+    const thanks = document.getElementById('thanks');
+    const title = document.getElementById('thanksTitle');
+    const text = document.getElementById('thanksText');
+    const googleBtn = document.getElementById('googleBtn');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const rating = Number(btn.dataset.rating);
+        thanks.classList.add('show');
+        googleBtn.classList.add('show');
+
+        if (rating >= 4) {
+          title.textContent = 'Aapne dil khush kar diya! ❤️';
+          text.textContent = 'Aapko Rasoi Junction pasand aaya, toh apna pyaara sa experience Google par bhi share kar dijiye. Aapka review hamare liye bahut badi baat hai!';
+        } else if (rating === 3) {
+          title.textContent = 'Thank you for your honest feedback! 🙏';
+          text.textContent = 'Hum aur better banne ki koshish karenge. Aapka feedback Rasoi Junction ko improve karne mein help karta hai.';
+        } else {
+          title.textContent = 'Humein batane ke liye thank you. 🙏';
+          text.textContent = 'Aapka honest feedback hamare liye important hai. Hum aapke experience ko better banane ki poori koshish karenge.';
+        }
+
+        if (rating <= 3) googleBtn.textContent = '📍 Google par Experience Share Karein';
+        else googleBtn.textContent = '⭐ Google par Review Karein';
+        googleBtn.insertAdjacentHTML('beforeend','<small>Rasoi Junction ko apna experience batayein</small>');
+        googleBtn.onclick = () => window.open(GOOGLE_LINK, '_blank', 'noopener,noreferrer');
+        thanks.scrollIntoView({behavior:'smooth',block:'center'});
+      });
+    });
+  </script>
+</body>
+</html>
